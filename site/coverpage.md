@@ -1,10 +1,10 @@
 
-> 做更轻量，更简单实用的HTTP客户端框架
+> 从业十年第一个开源作品^_^
 
-# **Forest**
+# **ImageCombiner**
 
-* Forest能够帮助您用更简单的方式编写Java的HTTP客户端
+* ImageCombiner是一个专门用于图片合成的工具，没有很复杂的功能，简单实用，却不失强大
 
-[Gitee](https://gitee.com/dt_flys/forest)
-[GitHub](https://github.com/mySingleLive/forest)
+[Gitee](https://gitee.com/opensourcechen/image-combiner)
+
 [快速上手](#一-新手介绍)
