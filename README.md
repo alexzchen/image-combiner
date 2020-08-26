@@ -36,7 +36,7 @@ ImageCombiner使用起来相当简单，主要的类只用一个，new一个Imag
 </dependency>
 ```
 
-最新版本为<font color=red>1.0.0</font>，为正式版本
+最新版本为<font color=red>1.0.0</font>，目前还没有上传中央仓库（比较麻烦），请先自行deploy到自己的私库
 
 ## 2.2 最简单的例子
 ```java
