@@ -7,6 +7,7 @@ import com.freeway.image.combiner.enums.OutputFormat;
 import com.freeway.image.combiner.enums.ZoomMode;
 import com.freeway.image.combiner.painter.IPainter;
 import com.freeway.image.combiner.painter.PainterFactory;
+import com.freeway.image.combiner.painter.TextPainter;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -70,6 +71,17 @@ public class ImageCombiner {
         g.dispose();
 
         return combinedImage;
+    }
+
+    /**
+     * 计算多行文本高度
+     * @param textElement
+     * @return
+     */
+    public int computeBreakLineHeight(TextElement textElement){
+        TextPainter textPainter = new TextPainter();
+        List<TextElement> textElements = textPainter.getBreakLineElements(textElement);
+        return textElement.getLineHeight() * textElements.size();
     }
 
 

@@ -67,7 +67,7 @@ public class TextPainter implements IPainter {
         return width;
     }
 
-    public boolean isChineseChar(char c) {
+    private boolean isChineseChar(char c) {
         return String.valueOf(c).matches("[\u4e00-\u9fa5]");
     }
 
@@ -137,7 +137,7 @@ public class TextPainter implements IPainter {
         return computedLines;
     }
 
-    private List<TextElement> getBreakLineElements(TextElement textElement) {
+    public List<TextElement> getBreakLineElements(TextElement textElement) {
         List<TextElement> breakLineElements = new ArrayList<>();
         List<String> breakLineTexts = computeLines(textElement.getText(), textElement.getFont(), textElement.getMaxLineWidth());
         int y = textElement.getY();
