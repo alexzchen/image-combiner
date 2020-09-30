@@ -41,7 +41,7 @@ public class ImageCombiner {
     }
 
     /**
-     * @param bgImage 背景图片对象（画布以背景图宽高为基准）
+     * @param bgImage      背景图片对象（画布以背景图宽高为基准）
      * @param outputFormat 输出图片格式
      */
     public ImageCombiner(BufferedImage bgImage, OutputFormat outputFormat) throws Exception {
@@ -75,13 +75,19 @@ public class ImageCombiner {
 
     /**
      * 计算多行文本高度
+     *
      * @param textElement
      * @return
      */
-    public int computeBreakLineHeight(TextElement textElement){
+    public int computeTextLineHeight(TextElement textElement) {
         TextPainter textPainter = new TextPainter();
         List<TextElement> textElements = textPainter.getBreakLineElements(textElement);
         return textElement.getLineHeight() * textElements.size();
+    }
+
+    public int computeTextWidth(TextElement textElement) {
+        TextPainter textPainter = new TextPainter();
+        return textPainter.getFrontWidth(textElement.getText(), textElement.getFont());
     }
 
 

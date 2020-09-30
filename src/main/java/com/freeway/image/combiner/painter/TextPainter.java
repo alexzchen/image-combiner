@@ -58,7 +58,7 @@ public class TextPainter implements IPainter {
         }
     }
 
-    private int getFrontWidth(String text, Font font) {
+    public int getFrontWidth(String text, Font font) {
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
         int width = 0;
         for (int i = 0; i < text.length(); i++) {
