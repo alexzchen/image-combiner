@@ -131,13 +131,13 @@ public void demo() throws Exception {
 | `ImageElement` | 居中绘制 | `setCenter()`                           |
 | `ImageElement` | 透明度   | `setAlpha()`                            |
 | ----------------- |  |  |
-| `TextElement`  | 文本     | `setText()`,`setY()`                    |
+| `TextElement`  | 文本     | `setText()`                             |
 | `TextElement`  | 位置     | `setX()`,`setY()`                       |
 | `TextElement`  | 居中绘制 | `setCenter()`                           |
 | `TextElement`  | 透明度   | `setAlpha()`                            |
 | `TextElement`  | 颜色     | `setColor()`                            |
-| `TextElement`  | 字体     | `setFontName()`                         |
-| `TextElement`  | 字号     | `setFontName()`                         |
+| `TextElement`  | 字体     | `setFont()`                             |
+| `TextElement`  | 字号     | `setFont()`                             |
 | `TextElement`  | 删除线   | `setStrikeThrough()`                    |
 | `TextElement`  | 自动换行 | `setAutoBreakLine()`                    |
 
