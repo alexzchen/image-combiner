@@ -85,6 +85,11 @@ public class ImageCombiner {
         return textElement.getLineHeight() * textElements.size();
     }
 
+    /**
+     * 计算文本宽度（常用于确定后续文本元素的坐标，如跟在原价后面的打折价）
+     * @param textElement
+     * @return
+     */
     public int computeTextWidth(TextElement textElement) {
         TextPainter textPainter = new TextPainter();
         return textPainter.getFrontWidth(textElement.getText(), textElement.getFont());
