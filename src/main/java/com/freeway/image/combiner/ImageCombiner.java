@@ -74,7 +74,7 @@ public class ImageCombiner {
     }
 
     /**
-     * 计算多行文本高度
+     * 计算多行文本高度（常用于确定后续元素的y坐标，如跟在商品描述下方的价格，商品描述行数不定，需动态计算多行总高度）
      *
      * @param textElement
      * @return
@@ -86,7 +86,7 @@ public class ImageCombiner {
     }
 
     /**
-     * 计算文本宽度（常用于确定后续文本元素的坐标，如跟在原价后面的打折价）
+     * 计算文本宽度（常用于确定后续元素的x坐标，如跟在原价后面的打折价，原价位数不定，需动态计算总宽度）
      * @param textElement
      * @return
      */
