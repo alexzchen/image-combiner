@@ -136,7 +136,7 @@ public void demo() throws Exception {
 | `ImageElement` | 图片     | `setImage()`,`setImgUrl()`              |
 | `ImageElement` | 位置     | `setX()`,`setY()`                       |
 | `ImageElement` | 缩放     | `setWidth()`,`setHeight()`,`ZoomMode`   |
-| `ImageElement` | 旋转     | `setRotate()`,`setRotate()`             |
+| `ImageElement` | 旋转     | `setRotate()`                           |
 | `ImageElement` | 圆角     | `setRoundCorner()`                      |
 | `ImageElement` | 居中绘制 | `setCenter()`                           |
 | `ImageElement` | 透明度   | `setAlpha()`                            |
