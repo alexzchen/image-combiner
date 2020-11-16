@@ -152,4 +152,42 @@ public class AppTest {
         //保存
         combiner.save("d://123.jpg");
     }
+
+    @Test
+    public void rotateTest() throws Exception {
+        String bg = "https://img.thebeastshop.com/combine_image/funny_topic/resource/bg_3x4.png";
+        ImageCombiner combiner = new ImageCombiner(bg, OutputFormat.JPG);
+
+        combiner.addTextElement("测试一下多行文本换行加旋转的动作，不知道是否能正常显示", 80, 300, 300)
+                .setStrikeThrough(true)
+                .setAutoBreakLine(600,2,80);
+        combiner.addTextElement("测试一下多行文本换行加旋转的动作，不知道是否能正常显示", 80, 300, 300).setColor(Color.red)
+                .setStrikeThrough(true)
+                .setAutoBreakLine(600,2,80)
+                .setRotate(40);
+
+        combiner.addImageElement("http://img.thebeastshop.com/images/index/imgs/8wzZ7St7KH.jpg", 300, 600)
+        .setRotate(45);
+
+        combiner.combine();
+        combiner.save("d://rotateTest.jpg");
+    }
+
+    @Test
+    public void rotateTest2() throws Exception {
+        String bg = "https://img.thebeastshop.com/combine_image/funny_topic/resource/bg_3x4.png";
+        ImageCombiner combiner = new ImageCombiner(bg, OutputFormat.JPG);
+
+        combiner.addTextElement("我觉得应该可以正常显示", 80, 300, 300)
+                .setCenter(true);
+        combiner.addTextElement("我觉得应该可以正常显示", 80, 300, 300).setColor(Color.red)
+                .setCenter(true)
+                .setRotate(40);
+
+        combiner.addImageElement("http://img.thebeastshop.com/images/index/imgs/8wzZ7St7KH.jpg", 300, 600)
+                .setRotate(45);
+
+        combiner.combine();
+        combiner.save("d://rotateTest.jpg");
+    }
 }

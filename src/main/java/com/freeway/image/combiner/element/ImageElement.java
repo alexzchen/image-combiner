@@ -4,6 +4,8 @@ import com.freeway.image.combiner.enums.ZoomMode;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -19,14 +21,18 @@ public class ImageElement extends CombineElement<ImageElement> {
     private Integer height;                 //绘制高度
     private Integer roundCorner;            //圆角度数
     private ZoomMode zoomMode;              //缩放模式
+    private Integer rotate;                 //旋转角度
 
     /**
      * @param imgUrl 图片url
      * @param x      x坐标
      * @param y      y坐标
      */
-    public ImageElement(String imgUrl, int x, int y) {
+    public ImageElement(String imgUrl, int x, int y) throws IOException {
         this.imgUrl = imgUrl;
+        this.image = ImageIO.read(new URL(this.imgUrl));
+        this.width = image.getWidth();
+        this.height = image.getHeight();
         this.zoomMode = ZoomMode.Origin;
         super.setX(x);
         super.setY(y);
@@ -37,8 +43,11 @@ public class ImageElement extends CombineElement<ImageElement> {
      * @param x     x坐标
      * @param y     y坐标
      */
-    public ImageElement(BufferedImage image, int x, int y) {
+    public ImageElement(BufferedImage image, int x, int y) throws IOException {
         this.image = image;
+        this.image = ImageIO.read(new URL(this.imgUrl));
+        this.width = image.getWidth();
+        this.height = image.getHeight();
         this.zoomMode = ZoomMode.Origin;
         super.setX(x);
         super.setY(y);
@@ -140,4 +149,12 @@ public class ImageElement extends CombineElement<ImageElement> {
         return this;
     }
 
+    public Integer getRotate() {
+        return rotate;
+    }
+
+    public ImageElement setRotate(Integer rotate) {
+        this.rotate = rotate;
+        return this;
+    }
 }

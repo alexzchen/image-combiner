@@ -20,6 +20,9 @@ public class TextPainter implements IPainter {
     @Override
     public void draw(Graphics2D g, CombineElement element, int canvasWidth) {
 
+        //因为g是全局的，每次回之前要先旋转到正常位置，以免被别的元素影响
+        g.rotate(Math.toRadians(0));
+
         //强制转成子类
         TextElement textElement = (TextElement) element;
 
@@ -32,15 +35,25 @@ public class TextPainter implements IPainter {
         }
 
         for (TextElement textLineElement : textLineElements) {
+
+            int textWidth = 0;
             //设置字体、颜色
             g.setFont(textLineElement.getFont());
             g.setColor(textLineElement.getColor());
 
             //设置居中
             if (textLineElement.isCenter()) {
-                int textWidth = this.getFrontWidth(textLineElement.getText(), textLineElement.getFont());
+                textWidth = this.getFrontWidth(textLineElement.getText(), textLineElement.getFont());
                 int centerX = (canvasWidth - textWidth) / 2;
                 textLineElement.setX(centerX);
+            }
+
+            //旋转
+            if (textLineElement.getRotate() != null) {
+                if (textWidth == 0) {
+                    textWidth = this.getFrontWidth(textLineElement.getText(), textLineElement.getFont());
+                }
+                g.rotate(Math.toRadians(textLineElement.getRotate()), textLineElement.getX() + textWidth / 2, textLineElement.getY());
             }
 
             //设置透明度
@@ -54,6 +67,11 @@ public class TextPainter implements IPainter {
                 g.drawString(as.getIterator(), textLineElement.getX(), textLineElement.getY());
             } else {
                 g.drawString(textLineElement.getText(), textLineElement.getX(), textLineElement.getY());
+            }
+
+            //绘制完后反向旋转，以免影响后续元素
+            if (textLineElement.getRotate() != null) {
+                g.rotate(-Math.toRadians(textLineElement.getRotate()), textLineElement.getX() + textWidth / 2, textLineElement.getY());
             }
         }
     }
@@ -153,6 +171,7 @@ public class TextPainter implements IPainter {
                 combineTextLine.setStrikeThrough(textElement.isStrikeThrough());
                 combineTextLine.setCenter(textElement.isCenter());
                 combineTextLine.setAlpha(textElement.getAlpha());
+                combineTextLine.setRotate(textElement.getRotate());
                 breakLineElements.add(combineTextLine);
 
                 //累加高度

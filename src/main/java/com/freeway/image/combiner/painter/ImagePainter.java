@@ -17,7 +17,7 @@ public class ImagePainter implements IPainter {
     public void draw(Graphics2D g, CombineElement element, int canvasWidth) throws Exception {
 
         //强制转成子类
-        ImageElement imageElement = (ImageElement)element;
+        ImageElement imageElement = (ImageElement) element;
 
         //读取元素图
         BufferedImage image = imageElement.getImage();
@@ -56,11 +56,21 @@ public class ImagePainter implements IPainter {
             imageElement.setX(centerX);
         }
 
+        //旋转
+        if (imageElement.getRotate() != null) {
+            g.rotate(Math.toRadians(imageElement.getRotate()), imageElement.getX() + imageElement.getWidth() / 2, imageElement.getY() + imageElement.getHeight() / 2);
+        }
+
         //设置透明度
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, imageElement.getAlpha()));
 
         //将元素图绘制到画布
         g.drawImage(image, imageElement.getX(), imageElement.getY(), width, height, null);
+
+        //绘制完后反向旋转，以免影响后续元素
+        if (imageElement.getRotate() != null) {
+            g.rotate(-Math.toRadians(imageElement.getRotate()), imageElement.getX() + imageElement.getWidth() / 2, imageElement.getY() + imageElement.getHeight() / 2);
+        }
     }
 
     private BufferedImage makeRoundCorner(BufferedImage srcImage, int width, int height, int radius) {

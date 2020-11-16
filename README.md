@@ -6,7 +6,7 @@
 
 ## 1.2 ImageCombiner能够做什么?
 
-ImageCombiner是一个专门用于图片合成的工具，没有很复杂的功能，简单实用，从实际业务场景出发，提供简单的接口，几行代码即可实现图片拼合（当然用于合成水印也可以），素材上支持图片和文本两种，支持定位、缩放、圆角、透明度、颜色、字体、字号、删除线、居中绘制、文本自动换行等特性，足够覆盖图片合成的日常需求。
+ImageCombiner是一个专门用于图片合成的工具，没有很复杂的功能，简单实用，从实际业务场景出发，提供简单的接口，几行代码即可实现图片拼合（当然用于合成水印也可以），素材上支持图片和文本两种，支持定位、缩放、旋转、圆角、透明度、颜色、字体、字号、删除线、居中绘制、文本自动换行等特性，足够覆盖图片合成的日常需求。
 
 ## 1.3 先看一下效果
 ![avater](site/media/sample.png)
@@ -32,11 +32,11 @@ ImageCombiner使用起来相当简单，主要的类只用一个，new一个Imag
 <dependency>
     <groupId>com.freeway</groupId>
     <artifactId>image-combiner</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
-最新版本为<font color=red>1.0.0</font>，目前还没有上传中央仓库（比较麻烦），请先自行deploy到自己的私库
+最新版本为<font color=red>1.1.0</font>，目前还没有上传中央仓库（比较麻烦），请先自行deploy到自己的私库
 
 ## 2.2 最简单的例子
 ```java
@@ -45,19 +45,19 @@ public void simpleDemo() throws Exception {
     //合成器（指定背景图和输出格式，整个图片的宽高和相关计算依赖于背景图，所以背景图的大小是个基准）
     ImageCombiner combiner = new ImageCombiner("http://xxx.com/image/bg.jpg", OutputFormat.JPG);
 
-    //加图片元素（居中绘制，圆角，半透明）
-    combiner.addImageElement("http://xxx.com/image/product.png", 0, 300)
-            .setCenter(true)
-            .setRoundCorner(60)
-            .setAlpha(.8f);
+    //加图片元素
+    combiner.addImageElement("http://xxx.com/image/product.png", 0, 300);
 
-    //加文本元素，设置为红色
-    combiner.addTextElement("周末大放送", 60, 100, 960).setColor(Color.red);
+    //加文本元素
+    combiner.addTextElement("周末大放送", 60, 100, 960);
 
     //执行图片合并
     combiner.combine();
 
-    //保存文件
+    //可以获取流（并上传oss等）
+    InputStream is = combiner.getCombinedImageStream();
+
+    //也可以保存到本地
     combiner.save("d://image.jpg");
 ```
 
@@ -67,7 +67,6 @@ public void simpleDemo() throws Exception {
 public void demo() throws Exception {
 
     //图片元素可以是Url，也可以是BufferImage对象
-
     String bgImageUrl = "http://xxx.com/image/bg.jpg";                  //背景图
     String qrCodeUrl = "http://xxx.com/image/qrCode.png";               //二维码
     String productImageUrl = "http://xxx.com/image/product.jpg";        //商品图
@@ -79,28 +78,36 @@ public void demo() throws Exception {
     //合成器（指定背景图和输出格式，整个图片的宽高和相关计算依赖于背景图，所以背景图的大小是个基准）
     ImageCombiner combiner = new ImageCombiner(bgImageUrl, OutputFormat.JPG);
 
-    //商品图（设置坐标、宽高和缩放模式，若按宽度缩放，则高度按比例自动计算）
-    combiner.addImageElement(productImageUrl, 0, 160, 837, 0, ZoomMode.Width)
-            .setRoundCorner(46)     //设置圆角
-            .setCenter(true);       //居中绘制，会忽略x坐标参数，改为自动计算
-
     //标题（默认字体为阿里普惠、黑色，也可以自己指定Font对象）
-    combiner.addTextElement(title, 55, 150, 1400);
+    combiner.addTextElement(title, 0, 150, 1400)
+            .setCenter(true)        //居中绘制（会忽略x坐标，改为自动计算）
+            .setAlpha(.8f);         //透明度（0.0~1.0）
+            .setRotate(45);         //旋转（0~360）
+            .setColor(Color.Red)    //颜色
 
     //内容（设置文本自动换行，需要指定最大宽度（超出则换行）、最大行数（超出则丢弃）、行高）
     combiner.addTextElement(content, "微软雅黑", 40, 150, 1480)
-            .setAutoBreakLine(837, 2, 60);
+            .setStrikeThrough(true)             //删除线
+            .setAutoBreakLine(837, 2, 60);      //自动换行
+
+    //商品图（设置坐标、宽高和缩放模式，若按宽度缩放，则高度按比例自动计算）
+    combiner.addImageElement(productImageUrl, 0, 160, 837, 0, ZoomMode.Width)
+            .setCenter(true);       //居中绘制（会忽略x坐标，改为自动计算）
+            .setRoundCorner(46)     //设置圆角
 
     //头像（圆角设置一定的大小，可以把头像变成圆的）
-    combiner.addImageElement(avatar, 200, 1200).setRoundCorner(200);
+    combiner.addImageElement(avatar, 200, 1200)
+            .setRoundCorner(200);   //圆角
 
     //水印（设置透明度，0.0~1.0）
-    combiner.addImageElement(waterMark, 630, 1200).setAlpha(.8f);
+    combiner.addImageElement(waterMark, 630, 1200)
+            .setAlpha(.8f);         //透明度（0.0~1.0）
+            .setRotate(45);         //旋转（0~360）
 
     //二维码（强制按指定宽度、高度缩放）
     combiner.addImageElement(qrCodeUrl, 138, 1707, 186, 186, ZoomMode.WidthHeight);
 
-    //元素对象也可以直接new，然后手动加入待绘制列表
+    //价格（元素对象也可以直接new，然后手动加入待绘制列表）
     TextElement textPrice = new TextElement("￥1290", 60, 230, 1300);
     textPrice.setColor(Color.red);          //红色
     textPrice.setStrikeThrough(true);       //删除线
@@ -108,9 +115,11 @@ public void demo() throws Exception {
 
     //执行图片合并
     combiner.combine();
-    //获取流（并上传oss等）
+
+    //可以获取流（并上传oss等）
     InputStream is = combiner.getCombinedImageStream();
-    //保存文件
+
+    //也可以保存到本地
     combiner.save("d://image.jpg");
 }
 ```
@@ -127,6 +136,7 @@ public void demo() throws Exception {
 | `ImageElement` | 图片     | `setImage()`,`setImgUrl()`              |
 | `ImageElement` | 位置     | `setX()`,`setY()`                       |
 | `ImageElement` | 缩放     | `setWidth()`,`setHeight()`,`ZoomMode`   |
+| `ImageElement` | 旋转     | `setRotate()`,`setRotate()`             |
 | `ImageElement` | 圆角     | `setRoundCorner()`                      |
 | `ImageElement` | 居中绘制 | `setCenter()`                           |
 | `ImageElement` | 透明度   | `setAlpha()`                            |
@@ -134,6 +144,7 @@ public void demo() throws Exception {
 | `TextElement`  | 文本     | `setText()`                             |
 | `TextElement`  | 位置     | `setX()`,`setY()`                       |
 | `TextElement`  | 居中绘制 | `setCenter()`                           |
+| `TextElement`  | 旋转     | `setRotate()`,`setRotate()`             |
 | `TextElement`  | 透明度   | `setAlpha()`                            |
 | `TextElement`  | 颜色     | `setColor()`                            |
 | `TextElement`  | 字体     | `setFont()`                             |

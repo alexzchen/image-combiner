@@ -15,6 +15,7 @@ public class TextElement extends CombineElement<TextElement> {
     private Font font;                  //字体
     private boolean strikeThrough;      //删除线
     private Color color = new Color(0, 0, 0);   //颜色，默认黑色
+    private Integer rotate;             //旋转
 
     //换行计算相关属性
     private boolean autoBreakLine = false;  //是否自动换行
@@ -78,6 +79,15 @@ public class TextElement extends CombineElement<TextElement> {
 
     public TextElement setFont(Font font) {
         this.font = font;
+        return this;
+    }
+
+    public Integer getRotate() {
+        return rotate;
+    }
+
+    public TextElement setRotate(Integer rotate) {
+        this.rotate = rotate;
         return this;
     }
 
