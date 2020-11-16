@@ -144,7 +144,7 @@ public void demo() throws Exception {
 | `TextElement`  | 文本     | `setText()`                             |
 | `TextElement`  | 位置     | `setX()`,`setY()`                       |
 | `TextElement`  | 居中绘制 | `setCenter()`                           |
-| `TextElement`  | 旋转     | `setRotate()`,`setRotate()`             |
+| `TextElement`  | 旋转     | `setRotate()`                           |
 | `TextElement`  | 透明度   | `setAlpha()`                            |
 | `TextElement`  | 颜色     | `setColor()`                            |
 | `TextElement`  | 字体     | `setFont()`                             |
