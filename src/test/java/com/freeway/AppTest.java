@@ -57,6 +57,8 @@ public class AppTest {
         //背景图
         String bgImage = "https://img.thebeastshop.com/combine_image/funny_topic/resource/bg_3x4.png";
         ImageCombiner imageCombiner = new ImageCombiner(bgImage, OutputFormat.JPG);
+        //设置背景虚化
+        imageCombiner.setBackgroundBlur(30);
 
         //话题图
         imageCombiner.addImageElement(topicImage, 0, 160, 837, 0, ZoomMode.Width)
@@ -70,9 +72,10 @@ public class AppTest {
         imageCombiner.addTextElement(topicContent, 40, 150, 1480)
                 .setAutoBreakLine(837, 3, 60);
 
-        //水印
+        //水印（虚化30）
         String waterMark = "https://img.thebeastshop.com/combine_image/funny_topic/resource/water_mark.png";
-        imageCombiner.addImageElement(waterMark, 630, 1200);
+        imageCombiner.addImageElement(waterMark, 630, 1200)
+                .setBlur(30);
 
         //二维码
         imageCombiner.addImageElement(qrCodeUrl, 138, 1707, 186, 186, ZoomMode.WidthHeight);
@@ -160,14 +163,14 @@ public class AppTest {
 
         combiner.addTextElement("测试一下多行文本换行加旋转的动作，不知道是否能正常显示", 80, 300, 300)
                 .setStrikeThrough(true)
-                .setAutoBreakLine(600,2,80);
+                .setAutoBreakLine(600, 2, 80);
         combiner.addTextElement("测试一下多行文本换行加旋转的动作，不知道是否能正常显示", 80, 300, 300).setColor(Color.red)
                 .setStrikeThrough(true)
-                .setAutoBreakLine(600,2,80)
+                .setAutoBreakLine(600, 2, 80)
                 .setRotate(40);
 
         combiner.addImageElement("http://img.thebeastshop.com/images/index/imgs/8wzZ7St7KH.jpg", 300, 600)
-        .setRotate(45);
+                .setRotate(45);
 
         combiner.combine();
         combiner.save("d://rotateTest.jpg");

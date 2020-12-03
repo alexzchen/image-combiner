@@ -32,11 +32,11 @@ ImageCombiner使用起来相当简单，主要的类只用一个，new一个Imag
 <dependency>
     <groupId>com.freeway</groupId>
     <artifactId>image-combiner</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
-最新版本为<font color=red>1.1.0</font>，目前还没有上传中央仓库（比较麻烦），请先自行deploy到自己的私库
+最新版本为<font color=red>1.1.1</font>，目前还没有上传中央仓库（比较麻烦），请先自行deploy到自己的私库
 
 ## 2.2 最简单的例子
 ```java
@@ -77,6 +77,8 @@ public void demo() throws Exception {
 
     //合成器（指定背景图和输出格式，整个图片的宽高和相关计算依赖于背景图，所以背景图的大小是个基准）
     ImageCombiner combiner = new ImageCombiner(bgImageUrl, OutputFormat.JPG);
+    //设置背景高斯模糊（毛玻璃效果）
+    combiner.setBackgroundBlur(30);
 
     //标题（默认字体为阿里普惠、黑色，也可以自己指定Font对象）
     combiner.addTextElement(title, 0, 150, 1400)
@@ -103,6 +105,7 @@ public void demo() throws Exception {
     combiner.addImageElement(waterMark, 630, 1200)
             .setAlpha(.8f);         //透明度（0.0~1.0）
             .setRotate(45);         //旋转（0~360）
+            .setBlur(20);           //高斯模糊(1~100)_
 
     //二维码（强制按指定宽度、高度缩放）
     combiner.addImageElement(qrCodeUrl, 138, 1707, 186, 186, ZoomMode.WidthHeight);
@@ -140,6 +143,7 @@ public void demo() throws Exception {
 | `ImageElement` | 圆角     | `setRoundCorner()`                      |
 | `ImageElement` | 居中绘制 | `setCenter()`                           |
 | `ImageElement` | 透明度   | `setAlpha()`                            |
+| `ImageElement` | 高斯模糊 | `setBlur()`                             |
 | ----------------- |  |  |
 | `TextElement`  | 文本     | `setText()`                             |
 | `TextElement`  | 位置     | `setX()`,`setY()`                       |
@@ -155,7 +159,17 @@ public void demo() throws Exception {
 ## 2.6 后续计划
 作者日常需求中已经够用了，各位小伙伴如果有额外的需求可以考虑再进一步扩充，如增加旋转、毛玻璃、艺术字等特效，欢迎加群交流
 
+## 2.7 更新日志
+v1.0.0  
+* 基本功能完善
 
+v1.1.0  
+* 修复一些小bug
+* 开放文本宽度、高度计算等方法，方便外部动态计算元素位置
+* 文本和图片元素支持旋转
+
+v1.1.1  
+* 背景和图片元素支持高斯模糊（毛玻璃效果）
 
 # 三. 联系作者
 

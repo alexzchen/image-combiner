@@ -22,6 +22,7 @@ public class ImageElement extends CombineElement<ImageElement> {
     private Integer roundCorner;            //圆角度数
     private ZoomMode zoomMode;              //缩放模式
     private Integer rotate;                 //旋转角度
+    private Integer blur;                   //高斯模糊（毛玻璃）
 
     /**
      * @param imgUrl 图片url
@@ -156,5 +157,13 @@ public class ImageElement extends CombineElement<ImageElement> {
     public ImageElement setRotate(Integer rotate) {
         this.rotate = rotate;
         return this;
+    }
+
+    public Integer getBlur() {
+        return blur;
+    }
+
+    public void setBlur(Integer blur) {
+        this.blur = blur;
     }
 }

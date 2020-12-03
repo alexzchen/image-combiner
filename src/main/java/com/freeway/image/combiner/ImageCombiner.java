@@ -141,6 +141,15 @@ public class ImageCombiner {
     /*****************创建和添加元素的辅助方法*******************/
 
     /**
+     * 设置背景高斯模糊（毛玻璃效果）
+     * @return
+     */
+    public void setBackgroundBlur(int blur){
+        ImageElement bgElement = (ImageElement)combineElements.get(0);
+        bgElement.setBlur(blur);
+    }
+
+    /**
      * 添加元素（图片或文本）
      *
      * @param element 图片或文本元素
