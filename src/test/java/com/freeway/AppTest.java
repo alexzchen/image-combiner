@@ -193,4 +193,40 @@ public class AppTest {
         combiner.combine();
         combiner.save("d://rotateTest.jpg");
     }
+
+    @Test
+    public void dynamicWidthDemoTest() throws Exception {
+        String bg = "https://img.thebeastshop.com/combine_image/funny_topic/resource/bg_3x4.png";
+        ImageCombiner combiner = new ImageCombiner(bg, OutputFormat.JPG);
+
+        String str1 = "您出征";
+        String str2 = "成都";     //内容不定，宽度也不定
+        String str3 = "，共在前线战斗了";
+        String str4 = "365";     //内容不定，宽度也不定
+        String str5 = "天！";
+        int fontSize = 60;
+        int xxxFontSize = 80;
+
+        int offsetX = 20;
+        int y = 300;
+
+        TextElement element1 = combiner.addTextElement(str1, fontSize, offsetX, y);
+        offsetX += combiner.computeTextWidth(element1);
+
+        TextElement element2 = combiner.addTextElement(str2, xxxFontSize, offsetX, y)
+                .setColor(Color.red);
+        offsetX += combiner.computeTextWidth(element2);
+
+        TextElement element3 = combiner.addTextElement(str3, fontSize, offsetX, y);
+        offsetX += combiner.computeTextWidth(element3);
+
+        TextElement element4 = combiner.addTextElement(str4, xxxFontSize, offsetX, y)
+                .setColor(Color.red);
+        offsetX += combiner.computeTextWidth(element4);
+
+        combiner.addTextElement(str5, fontSize, offsetX, y);
+
+        combiner.combine();
+        combiner.save("d://demo.jpg");
+    }
 }
