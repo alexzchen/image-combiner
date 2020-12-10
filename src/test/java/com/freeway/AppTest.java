@@ -200,7 +200,7 @@ public class AppTest {
         ImageCombiner combiner = new ImageCombiner(bg, OutputFormat.JPG);
 
         String str1 = "您出征";
-        String str2 = "成都";     //内容不定，宽度也不定
+        String str2 = "某城市";     //内容不定，宽度也不定
         String str3 = "，共在前线战斗了";
         String str4 = "365";     //内容不定，宽度也不定
         String str5 = "天！";

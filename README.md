@@ -127,11 +127,68 @@ public void demo() throws Exception {
 }
 ```
 
-## 2.4 代码截图
+## 2.4 小技巧
+实际需求中，经常会在一段固定文案里，填充宽度不定的文本或数字（如用户昵称、价格等），那中间待填充的空白部分留多少合适呢？
+在这个场景下，我们一般会把一行文案拆分成多段，构建多个TextElement，共同拼成一句话，后一个TextElement的x坐标，
+通过动态计算前一个TextElement的实际宽度后，累加得来。
+
+以下例子中，我们以“您出征XX，共在前线战斗了XX天！”这行为例，
+由于两个XX都是调用时传进来的参数，实际绘制宽度不固定，所以我们把这一行切分成5段，用5个TextElement动态计算位置，然后拼接起来。
+
+![avater](site/media/demo.png)
+
+```java
+public void dynamicWidthDemoTest() throws Exception {
+        String bg = "http://xxx.com/image/bg.jpg";
+        ImageCombiner combiner = new ImageCombiner(bg, OutputFormat.JPG);
+
+        String str1 = "您出征";
+        String str2 = "某城市";     //外部传参，内容不定，宽度也不定
+        String str3 = "，共在前线战斗了";
+        String str4 = "365";       //外部传参，内容不定，宽度也不定
+        String str5 = "天！";
+        int fontSize = 60;
+        int xxxFontSize = 80;
+
+        int offsetX = 20;   //通过计算前一个元素的实际宽度，并累加这个偏移量，得到后一个元素正确的x坐标值
+        int y = 300;
+
+        //第一段
+        TextElement element1 = combiner.addTextElement(str1, fontSize, offsetX, y);
+        offsetX += combiner.computeTextWidth(element1);     //计算宽度，并累加偏移量
+
+        //第二段（内容不定，宽度也不定）
+        TextElement element2 = combiner.addTextElement(str2, xxxFontSize, offsetX, y)
+                .setColor(Color.red);
+        offsetX += combiner.computeTextWidth(element2);
+
+        //第三段
+        TextElement element3 = combiner.addTextElement(str3, fontSize, offsetX, y);
+        offsetX += combiner.computeTextWidth(element3);
+
+        //第四段（内容不定，宽度也不定）
+        TextElement element4 = combiner.addTextElement(str4, xxxFontSize, offsetX, y)
+                .setColor(Color.red);
+        offsetX += combiner.computeTextWidth(element4);
+
+        //第五段
+        combiner.addTextElement(str5, fontSize, offsetX, y);
+
+        combiner.combine();
+        combiner.save("d://demo.jpg");
+    }
+```
+实际运行效果
+
+![avater](site/media/demo1-2.png)
+
+动态计算高度也是同样的原理，比方要把价格显示在商品描述下面，但商品描述不定有多少行，那此时价格元素的y坐标就是不确定的，可以通过调用combiner.computeTextLineHeight(textElement)方法，得到上一个元素的高度，累加计算后续元素的y坐标。
+
+## 2.5 代码截图
 
 ![avater](site/media/code.png)
 
-## 2.5 元素支持的特性
+## 2.6 元素支持的特性
 具体`ImageElement`和`TextElement`对象支持的特性如下表：
 
 | 元素类型        | 特性    | 相关方法                                 |
@@ -156,10 +213,10 @@ public void demo() throws Exception {
 | `TextElement`  | 删除线   | `setStrikeThrough()`                    |
 | `TextElement`  | 自动换行 | `setAutoBreakLine()`                    |
 
-## 2.6 后续计划
+## 2.7 后续计划
 作者日常需求中已经够用了，各位小伙伴如果有额外的需求可以考虑再进一步扩充，如增加旋转、毛玻璃、艺术字等特效，欢迎加群交流
 
-## 2.7 更新日志
+## 2.8 更新日志
 v1.0.0  
 * 基本功能完善
 
@@ -170,7 +227,6 @@ v1.1.0
 
 v1.1.1  
 * 背景和图片元素支持高斯模糊（毛玻璃效果）
-
 
 # 三. 联系作者
 
