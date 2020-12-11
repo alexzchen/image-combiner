@@ -24,6 +24,7 @@
 *.del
 *.pmd
 .tern-project
+!AlibabaPuHuiTiAll.zip
 
 
 # Logs and databases #
