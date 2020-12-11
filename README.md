@@ -32,11 +32,11 @@ ImageCombiner使用起来相当简单，主要的类只用一个，new一个Imag
 <dependency>
     <groupId>com.freeway</groupId>
     <artifactId>image-combiner</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 </dependency>
 ```
 
-最新版本为<font color=red>1.1.1</font>，目前还没有上传中央仓库（比较麻烦），请先自行deploy到自己的私库
+最新版本为<font color=red>1.1.2</font>，目前还没有上传中央仓库（比较麻烦），请先自行deploy到自己的私库
 
 ## 2.2 最简单的例子
 ```java
@@ -227,6 +227,9 @@ v1.1.0
 
 v1.1.1  
 * 背景和图片元素支持高斯模糊（毛玻璃效果）
+
+v1.1.2  
+* 修复一个ImageElement构造函数bug
 
 # 三. 联系作者
 
