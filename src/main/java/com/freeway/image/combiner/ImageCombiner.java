@@ -166,7 +166,7 @@ public class ImageCombiner {
      * @param y      y坐标
      * @return
      */
-    public ImageElement addImageElement(String imgUrl, int x, int y) throws IOException {
+    public ImageElement addImageElement(String imgUrl, int x, int y) throws Exception {
         ImageElement imageElement = new ImageElement(imgUrl, x, y);
         this.combineElements.add(imageElement);
         return imageElement;
@@ -180,7 +180,7 @@ public class ImageCombiner {
      * @param y     y坐标
      * @return
      */
-    public ImageElement addImageElement(BufferedImage image, int x, int y) throws IOException {
+    public ImageElement addImageElement(BufferedImage image, int x, int y) throws Exception {
         ImageElement imageElement = new ImageElement(image, x, y);
         this.combineElements.add(imageElement);
         return imageElement;

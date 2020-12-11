@@ -226,6 +226,9 @@ public class AppTest {
 
         combiner.addTextElement(str5, fontSize, offsetX, y);
 
+        BufferedImage img = ImageIO.read(new URL("http://img.thebeastshop.com/images/index/imgs/8wzZ7St7KH.jpg"));
+        combiner.addImageElement(img,20,500);
+
         combiner.combine();
         combiner.save("d://demo.jpg");
     }

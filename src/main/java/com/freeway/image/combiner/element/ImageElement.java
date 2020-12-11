@@ -29,11 +29,10 @@ public class ImageElement extends CombineElement<ImageElement> {
      * @param x      x坐标
      * @param y      y坐标
      */
-    public ImageElement(String imgUrl, int x, int y) throws IOException {
+    public ImageElement(String imgUrl, int x, int y) throws Exception {
         this.imgUrl = imgUrl;
-        this.image = ImageIO.read(new URL(this.imgUrl));
-        this.width = image.getWidth();
-        this.height = image.getHeight();
+        this.width = getImage().getWidth();     //事先获得宽高，后面计算要用
+        this.height = getImage().getHeight();
         this.zoomMode = ZoomMode.Origin;
         super.setX(x);
         super.setY(y);
@@ -44,11 +43,10 @@ public class ImageElement extends CombineElement<ImageElement> {
      * @param x     x坐标
      * @param y     y坐标
      */
-    public ImageElement(BufferedImage image, int x, int y) throws IOException {
+    public ImageElement(BufferedImage image, int x, int y) throws Exception {
         this.image = image;
-        this.image = ImageIO.read(new URL(this.imgUrl));
-        this.width = image.getWidth();
-        this.height = image.getHeight();
+        this.width = getImage().getWidth();
+        this.height = getImage().getHeight();
         this.zoomMode = ZoomMode.Origin;
         super.setX(x);
         super.setY(y);
