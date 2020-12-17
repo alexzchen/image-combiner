@@ -59,11 +59,18 @@ public class ImageCombiner {
      * @throws Exception
      */
     public BufferedImage combine() throws Exception {
-
         combinedImage = new BufferedImage(canvasWidth, canvasHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = combinedImage.createGraphics();
+
+        //PNG要做透明度处理，否则背景图透明部分会变黑
+        if(outputFormat == OutputFormat.PNG) {
+            combinedImage = g.getDeviceConfiguration().createCompatibleImage(canvasWidth, canvasHeight, Transparency.TRANSLUCENT);
+            g = combinedImage.createGraphics();
+        }
+        //抗锯齿
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        //循环绘制
         for (CombineElement element : combineElements) {
             IPainter painter = PainterFactory.createInstance(element);
             painter.draw(g, element, canvasWidth);

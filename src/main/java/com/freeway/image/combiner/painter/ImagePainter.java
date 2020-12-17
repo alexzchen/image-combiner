@@ -67,7 +67,9 @@ public class ImagePainter implements IPainter {
         }
 
         //设置透明度
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, imageElement.getAlpha()));
+        if (imageElement.getAlpha() != 1.0f) {
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, imageElement.getAlpha()));
+        }
 
         //将元素图绘制到画布
         g.drawImage(image, imageElement.getX(), imageElement.getY(), width, height, null);

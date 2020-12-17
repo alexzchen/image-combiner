@@ -20,9 +20,6 @@ public class TextPainter implements IPainter {
     @Override
     public void draw(Graphics2D g, CombineElement element, int canvasWidth) {
 
-        //因为g是全局的，每次回之前要先旋转到正常位置，以免被别的元素影响
-        g.rotate(Math.toRadians(0));
-
         //强制转成子类
         TextElement textElement = (TextElement) element;
 
@@ -57,7 +54,9 @@ public class TextPainter implements IPainter {
             }
 
             //设置透明度
-            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, textLineElement.getAlpha()));
+            if (textLineElement.getAlpha() != 1.0f) {
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, textLineElement.getAlpha()));
+            }
 
             //带删除线样式的文字要特殊处理
             if (textLineElement.isStrikeThrough() == true) {
